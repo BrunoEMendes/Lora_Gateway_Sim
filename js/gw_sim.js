@@ -1,6 +1,5 @@
 const jsonBuilder = require('packet-forwarder-json-builder')
 const fs = require('fs')
-const payload = Buffer.from('test')
 
 
 const hexToArrayBuffer = require('hex-to-array-buffer')
@@ -19,8 +18,7 @@ main()
 function main()
 {
   load_settings()
-  frame = build_udp_protocol();
-  send_pkt(frame)
+  send_pkt()
 }
 
 function isByteArray(array) {
@@ -50,20 +48,58 @@ function concat_package()
 }
 
 
-function send_pkt(frame)
+function send_pkt()
 {
   var client = dgram.createSocket('udp4')
   setInterval(() => {
+    frame = build_udp_protocol()
     client.send(frame, 0, frame.length, Server_Port, Server_IP, (err, bytes) =>
     {
           if(err)throw err
         // client.close()
-        console.log(new Date().toString())
+        console.log("pkg sent at "  + new Date().toString())
     })
   }, 5000)
 
 
   // console.log('sent')
+}
+
+
+function update_file()
+{
+  let content = JSON.parse(fs.readFileSync('settings.json', 'utf-8'))
+  content.FrameCounter = LFC
+  fs.writeFileSync('settings.json', JSON.stringify(content));
+}
+
+
+
+
+function generate_new_phy_payload()
+{  
+  var dict = {
+    "temperature": Math.random() * 100,
+    "humidity": Math.random() * 100
+  }
+
+  
+  const payload = Buffer.from(JSON.stringify(dict))
+
+    const scenario = {
+    gateway: {},
+    device: {
+      seqno: LFC,
+      addr: DevAdd,
+      appSKey:  AppKey,
+      nwkSKey: NwKey,
+    },
+  }
+  LFC++;
+
+  update_file()
+
+  return jsonBuilder.uplink(payload, scenario)["rxpk"][0]["data"]  
 }
 
 
@@ -84,30 +120,22 @@ function build_udp_protocol()
     // 
     let file_data = fs.readFileSync('../go/pkg_test.json')
     let parsed_json = JSON.parse(file_data)
-    let string_js = JSON.stringify(parsed_json)
+    parsed_json["rxpk"][0]["time"] = new Date().toISOString()
+    // console.log(parsed_json)
    
-    var payload = Buffer.from(string_js, 'utf-8')
+    
+  
 
-    // 
-
-
+    // console.log()
+    parsed_json["rxpk"][0]["data"] = generate_new_phy_payload()
     byte_mac = Buffer.from(GW_MAC, 'hex')
 
-    frame = concat_package(version, random_token, push_data, byte_mac,  payload)
+    let string_js = JSON.stringify(parsed_json)
+    var pl = Buffer.from(string_js, 'utf-8')
 
-
-    
-    console.log(frame)
-    // frame = temp
-    // while(true)
-    // {
-    // console.log(frame)
+    frame = concat_package(version, random_token, push_data, byte_mac, pl)
   
     return frame
-    
-    // }
-    // client.close()
-
 }
 
 
