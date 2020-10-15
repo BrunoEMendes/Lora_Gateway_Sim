@@ -1,16 +1,14 @@
 const jsonBuilder = require('packet-forwarder-json-builder')
 const fs = require('fs')
-const crypto = require('crypto')
 
-const hexToArrayBuffer = require('hex-to-array-buffer')
+
+// const crypto = require('crypto')
 
 
 var dgram = require("dgram")
 
-
 var NwKey, AppKey, DevAdd, LFC, Server_IP, Server_Port, GW_MAC
 var PUSH_DATA = '0'
-
 
 
 
@@ -91,7 +89,6 @@ function update_file()
   content.FrameCounter = LFC
   fs.writeFileSync('settings.json', JSON.stringify(content));
 }
-
 
 
 /**
@@ -176,7 +173,6 @@ function build_udp_protocol()
   
     return frame
 }
-
 
 /**
  * loads necessary info from the settings.json file
