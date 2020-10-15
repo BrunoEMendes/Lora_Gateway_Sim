@@ -1,0 +1,24 @@
+
+{
+  "phyPayload":"gFY0EjoAAgABCCpbg+AkKM1gHnQ=",
+  "rxpk":[{
+  "time":"2013-03-31T16:21:17.528002Z",
+  "tmst":3512348611,
+  "chan":2,
+  "rfch":0,
+  "freq":866.349812,
+  "stat":1,
+  "modu":"LORA",
+  "datr":"SF7BW125",
+  "codr":"4/6",
+  "rssi":-35,
+  "lsnr":5.1,
+  "size":32,
+  "confirmed": false,
+  "fPort": 10,
+  "data":"ewogICJEZXZFVUkiOiAiMDc1ZmMzZjAyZjg2OWQ3MTA4YmFlZmE4NjlkNDQ0ZTUiLAogICJBcHBLZXkiOiAiMGFmYzdjYjQ3MGQ5ZTk3YjYzYjA1NWMxMThjYjM1MmQiLAogICJmUG9ydCI6IDEwLAogICJvYmplY3QiOiB7CiAgICAidGVtcGVyYXR1cmVTZW5zb3IiOnsiMSI6MjV9LAogICAgImh1bWlkaXR5U2Vuc29yIjp7IjIiOiAzMn0KICB9Cn0=",
+  "object": {                               
+    "temperatureSensor": {"1": 25},  
+    "humiditySensor": {"1": 32}
+  }
+}]}

@@ -1,0 +1,9 @@
+{
+  "DevEUI": "075fc3f02f869d7108baefa869d444e5",
+  "AppKey": "0afc7cb470d9e97b63b055c118cb352d",
+  "fPort": 10,
+  "object": {
+    "temperatureSensor":{"1":25},
+    "humiditySensor":{"2": 32}
+  }
+}
