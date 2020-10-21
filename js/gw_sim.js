@@ -98,7 +98,8 @@ function generate_new_phy_payload()
 {  
   var dict = {
     "temperature": Math.random() * 100,
-    "humidity": Math.random() * 100
+    "humidity": Math.random() * 100,
+    "light": Math.random() * 100
   }
 
   const payload = Buffer.from(JSON.stringify(dict))
@@ -133,7 +134,7 @@ function generate_upd_payload()
     tmst:3512348611,
     chan:2,
     rfch:0,
-    freq:866.349812,
+    freq:867.100000,
     stat:1,
     modu:"LORA",
     datr:"SF7BW125",
@@ -143,7 +144,7 @@ function generate_upd_payload()
     size: msg.length,
     confirmed: false,
     fPort: 10,
-    data: msg
+    data: msg,
   }]}
 
   return Buffer.from(JSON.stringify(udp_pkt, 'utf-8'))
