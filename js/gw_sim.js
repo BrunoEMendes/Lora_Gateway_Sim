@@ -144,7 +144,7 @@ function generate_upd_payload()
     size: msg.length,
     confirmed: false,
     fPort: 10,
-    data: msg,
+    data: msg
   }]}
 
   return Buffer.from(JSON.stringify(udp_pkt, 'utf-8'))
